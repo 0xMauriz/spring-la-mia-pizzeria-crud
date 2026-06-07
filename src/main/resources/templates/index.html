@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+
+    <th:block th:insert="~{/fragments/fragments :: stylelinks}"></th:block>
+
+</head>
+
+<body>
+
+    <div class="p-4">
+
+        <h1>Pizze</h1>
+
+        <div th:if="${pizzas.size() > 0}" th:each="pizza : ${pizzas}" th:object="${pizza}" class="d-flex flex-wrap">
+            <a th:href="@{/pizza/{id}(id=*{id})}" class="pt-4 text-decoration-none">[[*{name}]]</a>
+            <p class="w-100">[[*{description}]]</p>
+
+            <div class="w-100">
+                <img th:src="*{image}" alt="" class="w-30">
+            </div>
+
+            <p>[[*{price}]]</p>
+
+        </div>
+
+    </div>
+
+</body>
