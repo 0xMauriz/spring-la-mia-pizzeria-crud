@@ -8,7 +8,10 @@ import jakarta.persistence.Table;
 import java.math.BigDecimal;
 
 import jakarta.persistence.Column;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
@@ -21,10 +24,12 @@ public class Pizza {
     private Integer id;
 
     @NotBlank(message = "Name can not be null, empty or blank ")
+    @Size(max = 50, message = "Il testo per il nome può essere massimo di 50 caratteri")
     @Column(name = "name")
     private String name;
 
     @NotBlank(message = "Name can not be null, empty or blank ")
+    @Size(max = 100, message = "Il testo per la descrizione può essere massimo di 100 caratteri")
     @Column(name = "description")
     private String description;
 
@@ -32,12 +37,16 @@ public class Pizza {
     @Column(name = "image")
     private String image;
 
-    @NotBlank(message = "Name can not be null, empty or blank ")
-    @Column(name = "price")
+    @NotNull
+    @DecimalMin(value = "0.5", message = "Il costo minimo della pizza non può essere inferiore a 0.50€")
     private BigDecimal price;
 
     public Integer getId() {
         return this.id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {

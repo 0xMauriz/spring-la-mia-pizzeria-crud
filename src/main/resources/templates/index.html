@@ -12,20 +12,32 @@
 
 <body>
 
-    <div class="p-4">
+    <div class="p-4 w-100 d-flex justify-content-around flex-wrap">
 
-        <h1>Pizze</h1>
+        <h1 class="w-50">Pizze</h1>
 
-        <div th:if="${pizzas.size() > 0}" th:each="pizza : ${pizzas}" th:object="${pizza}" class="d-flex flex-wrap">
-            <a th:href="@{/pizza/{id}(id=*{id})}" class="pt-4 text-decoration-none">[[*{name}]]</a>
-            <p class="w-100">[[*{description}]]</p>
+        <div class="w-50 d-flex py-2">
+            <a th:href="@{/pizze/create-new}" class="ms-auto btn btn-primary">Crea nuova pizza</a>
+        </div>
 
-            <div class="w-100">
+
+        <div th:if="${pizzas.size() > 0}" th:each="pizza : ${pizzas}" th:object="${pizza}"
+            class="w-30 mt-4 p-3 d-flex flex-wrap bg-body-secondary">
+            <a th:href="@{/pizze/{id}(id=*{id})}" class="w-100 pt-4 text-decoration-none text-center">[[*{name}]]</a>
+            <p class="w-100 text-center">[[*{description}]]</p>
+
+            <div class="w-100 d-flex justify-content-center">
                 <img th:src="*{image}" alt="" class="w-30">
             </div>
 
-            <p>[[*{price}]]</p>
+            <p class="w-100 text-center mt-4">[[*{price}]] €</p>
 
+            <div class="w-100 d-flex justify-content-between">
+                <a th:href="@{/pizze/edit/{id}(id=*{id})}" class="btn btn-primary">Modifica</a>
+                <form action="#" th:action="@{/pizze/delete/{id}(id=${pizza.id})}" method="post" th:object="${pizza}">
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
+            </div>
         </div>
 
     </div>
